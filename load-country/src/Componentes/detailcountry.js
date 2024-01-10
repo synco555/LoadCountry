@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { Button } from 'primereact/button';
 
 export default function DetailCountry({ countryData }) {
     const { fifa } = useParams();
@@ -19,9 +20,10 @@ export default function DetailCountry({ countryData }) {
     return (
         <div>
             {/* Back button */}
-            <div>
-                <Link to="/">Back to Home</Link>
+            <div className='card'>
+                <Button/>
             </div>
+           
             <div>
                 <img src={selectedCountry.flags?.svg} alt={`Flag of ${selectedCountry.name?.common}`} />
                 <p>Country: {selectedCountry.name?.common}</p>

@@ -7,10 +7,12 @@ import axios from 'axios';
 import './App.css';
 //import 'primeflex/primeflex.css';  
 import 'primereact/resources/primereact.css';
+//import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
+//import 'primeflex/primeflex.css';  
 
 function App() {
-  
+
   const [countryData, setCountryData] = useState([]);
   const [originalCountryData, setOriginalCountryData] = useState([]);
 
