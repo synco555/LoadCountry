@@ -1,0 +1,17 @@
+.dropdownsearch {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.alignleft {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+.alignright {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
