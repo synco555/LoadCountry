@@ -1,57 +1,58 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { Button } from 'primereact/button';
+import BackButton from './backbutton';
+import { BorderCountryCard } from './bordercountries';
+import DetailCountryCard from './detailcountrycard';
 
 export default function DetailCountry({ countryData }) {
     const { fifa } = useParams();
-    console.log(countryData)
-    // Find the selected country from countryData based on the fifa code
+
+    // Find the selected country from countryData based on fifa 
     const selectedCountry = countryData.find((country) => country.fifa === fifa);
-    console.log(selectedCountry)
+    console.log("hey", fifa, selectedCountry)
     if (!selectedCountry) {
         return <div>Country not found</div>;
     }
 
     const findCountryByFIFA = (code) => {
-        return countryData.find((country) => country.fifa === code);
+        if (!code) {
+            console.warn("FIFA code is null or undefined");
+            return null;
+        }
+
+        const foundCountry = countryData.find((country) => country.fifa === code);
+
+        if (!foundCountry) {
+            console.warn(`Country with FIFA code ${code} not found`);
+            return "Country with FIFA code not found"
+        }
+
+        return foundCountry;
     };
 
     return (
-        <div>
-            {/* Back button */}
-            <div className='card'>
-                <Button/>
-            </div>
-           
-            <div>
-                <img src={selectedCountry.flags?.svg} alt={`Flag of ${selectedCountry.name?.common}`} />
-                <p>Country: {selectedCountry.name?.common}</p>
-                <p>Region: {selectedCountry.region}</p>
+        <div className='background'>
 
-                {/* Display other details */}
+            <div className="back">
+                <BackButton />
             </div>
+
             <div>
-                {/* Display Border Countries */}
-                <h3>Border Countries</h3>
-                <ul>
-                    {selectedCountry.borders?.map((fifa, index) => {
-                        const borderCountry = findCountryByFIFA(fifa);
-                        return (
-                            <li key={index}>
-                                {borderCountry ? (
-                                    <Link to={`/${borderCountry.fifa}`}>
-                                        <strong>{borderCountry.name?.common}</strong> - {borderCountry.region}
-                                        <img src={borderCountry.flags?.svg} alt={`Flag of ${borderCountry.name?.common}`} />
-                                    </Link>
-                                ) : (
-                                    'Unknown Country'
-                                )}
-                            </li>
-                        );
-                    })}
-                </ul>
+                <DetailCountryCard selectedCountry={selectedCountry} />
             </div>
+            <h3>Border Countries</h3>
+            <div className='displayGrid4'>
+                {selectedCountry.borders?.map((fifa, index) => {
+                    const borderCountry = findCountryByFIFA(fifa);
+
+                    return (
+                        <div key={index}>
+                            <BorderCountryCard borderCountry={borderCountry} />
+                        </div>
+                    );
+                })}
+            </div>
+
         </div>
     );
 }

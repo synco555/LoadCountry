@@ -4,14 +4,13 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Componentes/home';
 import DetailCountry from './Componentes/detailcountry';
 import axios from 'axios';
-import './App.css';
-//import 'primeflex/primeflex.css';  
+import Header from './Componentes/header';
+import './App.css'; 
 import 'primereact/resources/primereact.css';
-//import 'primeicons/primeicons.css';
+import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
-//import 'primeflex/primeflex.css';  
 
-function App() {
+export default function App() {
 
   const [countryData, setCountryData] = useState([]);
   const [originalCountryData, setOriginalCountryData] = useState([]);
@@ -31,14 +30,14 @@ function App() {
 
   return (
     <Router>
-    <div>
-      <Routes>
-      <Route exact path="/" element={<Home countryData={countryData} setCountryData={setCountryData} originalCountryData={originalCountryData} setOriginalCountryData ={setOriginalCountryData}/>} />
+      <div>
+        <Header />
+        <Routes>
+          <Route exact path="/" element={<Home countryData={countryData} setCountryData={setCountryData} originalCountryData={originalCountryData} setOriginalCountryData={setOriginalCountryData} />} />
           <Route path="/:fifa" element={<DetailCountry countryData={countryData} />} />
-      </Routes>
-    </div>
-  </Router>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
-export default App;
